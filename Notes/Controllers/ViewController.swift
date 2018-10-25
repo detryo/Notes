@@ -23,6 +23,13 @@ class ViewController: UIViewController {
         pdfView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         pdfView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         pdfView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        // Metodos usu del PDF
+        let search = UIBarButtonItem(barButtonSystemItem: .search,
+                                     target: self,
+                                     action: #selector(pronptForSearch))
+        
+        self.navigationItem.leftBarButtonItems = [search]
     }
 
     func load(_ name: String){
@@ -38,6 +45,28 @@ class ViewController: UIViewController {
                 title = name
             }
         }
+    }
+    
+    @objc func pronptForSearch() {
+        
+        let alert = UIAlertController(title: "Search", message: nil, preferredStyle: .alert)
+        alert.addTextField()
+        
+        alert.addAction(UIAlertAction(title: "Search", style: .default, handler: {
+            (action) in
+            guard let searchText = alert.textFields?[0].text else { return }
+            
+            guard let match = self.pdfView.document?.findString (
+                searchText, fromSelection: self.pdfView.highlightedSelections?.first,
+                withOptions: .caseInsensitive
+                ) else { return }
+            
+            self.pdfView.go(to: match)
+            self.pdfView.highlightedSelections = [match]
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true)
     }
 
 }
