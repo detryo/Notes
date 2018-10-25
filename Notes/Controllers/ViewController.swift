@@ -24,12 +24,15 @@ class ViewController: UIViewController {
         pdfView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         pdfView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        // Metodos usu del PDF
         let search = UIBarButtonItem(barButtonSystemItem: .search,
                                      target: self,
-                                     action: #selector(pronptForSearch))
+                                     action: #selector(promptForSearch))
         
-        self.navigationItem.leftBarButtonItems = [search]
+        let share = UIBarButtonItem(barButtonSystemItem: .action,
+                                    target: self,
+                                    action: #selector(shareSelection))
+        
+        self.navigationItem.leftBarButtonItems = [search, share]
     }
 
     func load(_ name: String){
@@ -47,7 +50,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc func pronptForSearch() {
+    @objc func promptForSearch() {
         
         let alert = UIAlertController(title: "Search", message: nil, preferredStyle: .alert)
         alert.addTextField()
@@ -68,6 +71,23 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true)
     }
-
+    
+    @objc func shareSelection(sender: UIBarButtonItem){
+        
+        guard let selection = self.pdfView.currentSelection?.attributedString else {
+              let alert = UIAlertController(title: "Nothing is selected",
+                                          message: "Select a fragment of the file to share",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            present(alert, animated: true)
+            return
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: [selection], applicationActivities: nil)
+        activityVC.popoverPresentationController?.barButtonItem = sender
+        
+        present(activityVC, animated: true)
+    }
 }
 
