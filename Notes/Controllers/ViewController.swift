@@ -25,8 +25,19 @@ class ViewController: UIViewController {
         pdfView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    func load(_ filename: String){
-        print(filename)
+    func load(_ name: String){
+    
+        let filename = name.replacingOccurrences(of: " ", with: "_").lowercased()
+        guard let path = Bundle.main.url(forResource: filename, withExtension: "pdf") else { return }
+        
+        if let document = PDFDocument(url: path){
+        
+            self.pdfView.document = document
+            self.pdfView.goToFirstPage(nil)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                title = name
+            }
+        }
     }
 
 }
