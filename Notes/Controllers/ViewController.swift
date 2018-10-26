@@ -13,6 +13,7 @@ import SafariServices
 class ViewController: UIViewController, PDFViewDelegate {
     
     let pdfView = PDFView()
+    let textView = UITextView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,18 @@ class ViewController: UIViewController, PDFViewDelegate {
         pdfView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         pdfView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         pdfView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(textView)
+        
+        textView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        textView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        textView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        textView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        textView.isEditable = false
+        textView.isHidden = true
+        textView.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         
         let search = UIBarButtonItem(barButtonSystemItem: .search,
                                      target: self,
