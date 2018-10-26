@@ -8,8 +8,9 @@
 
 import UIKit
 import PDFKit
+import SafariServices
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PDFViewDelegate {
     
     let pdfView = PDFView()
 
@@ -41,6 +42,8 @@ class ViewController: UIViewController {
                                    action: #selector(PDFView.goToNextPage(_:)))
         
         self.navigationItem.leftBarButtonItems = [search, share, previus, next]
+        self.pdfView.autoScales = true
+        self.pdfView.delegate = self
     }
 
     func load(_ name: String){
@@ -96,6 +99,13 @@ class ViewController: UIViewController {
         activityVC.popoverPresentationController?.barButtonItem = sender
         
         present(activityVC, animated: true)
+    }
+    
+    func pdfViewWillClick(onLink sender: PDFView, with url: URL) {
+        
+        let viewController = SFSafariViewController(url: url)
+        viewController.modalPresentationStyle = .formSheet
+        present(viewController, animated: true)
     }
 }
 
