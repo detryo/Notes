@@ -32,7 +32,15 @@ class ViewController: UIViewController {
                                     target: self,
                                     action: #selector(shareSelection))
         
-        self.navigationItem.leftBarButtonItems = [search, share]
+        let previus = UIBarButtonItem(barButtonSystemItem: .rewind,
+                                      target: self.pdfView,
+                                      action: #selector(PDFView.goToPreviousPage(_:)))
+        
+        let next = UIBarButtonItem(barButtonSystemItem: .fastForward,
+                                   target: self.pdfView,
+                                   action: #selector(PDFView.goToNextPage(_:)))
+        
+        self.navigationItem.leftBarButtonItems = [search, share, previus, next]
     }
 
     func load(_ name: String){
