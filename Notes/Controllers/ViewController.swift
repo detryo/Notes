@@ -57,6 +57,12 @@ class ViewController: UIViewController, PDFViewDelegate {
         self.navigationItem.leftBarButtonItems = [search, share, previus, next]
         self.pdfView.autoScales = true
         self.pdfView.delegate = self
+        
+        let pdfMode = UISegmentedControl(items: ["PDF", "Only Text"])
+        pdfMode.addTarget(self, action: #selector(changePDFMode), for: .valueChanged)
+        pdfMode.selectedSegmentIndex = 0
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: pdfMode)
+        self.navigationItem.rightBarButtonItem?.width = 160
     }
 
     func load(_ name: String){
@@ -119,6 +125,19 @@ class ViewController: UIViewController, PDFViewDelegate {
         let viewController = SFSafariViewController(url: url)
         viewController.modalPresentationStyle = .formSheet
         present(viewController, animated: true)
+    }
+    
+    @objc func changePDFMode(segmentedControll: UISegmentedControl){
+        
+        if segmentedControll.selectedSegmentIndex == 0 {
+            // Mostrar PDF
+            pdfView.isHidden = false
+            textView.isHidden = true
+        } else {
+            // Mostrar Texto
+            pdfView.isHidden = true
+            textView.isHidden = false
+        }
     }
 }
 
