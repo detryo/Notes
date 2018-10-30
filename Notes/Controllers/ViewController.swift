@@ -74,6 +74,7 @@ class ViewController: UIViewController, PDFViewDelegate {
         
             self.pdfView.document = document
             self.pdfView.goToFirstPage(nil)
+            self.readText()
             if UIDevice.current.userInterfaceIdiom == .pad {
                 title = name
             }
@@ -127,9 +128,9 @@ class ViewController: UIViewController, PDFViewDelegate {
         present(viewController, animated: true)
     }
     
-    @objc func changePDFMode(segmentedControll: UISegmentedControl){
+    @objc func changePDFMode(segmentedControl: UISegmentedControl){
         
-        if segmentedControll.selectedSegmentIndex == 0 {
+        if segmentedControl.selectedSegmentIndex == 0 {
             // Mostrar PDF
             pdfView.isHidden = false
             textView.isHidden = true
@@ -138,6 +139,25 @@ class ViewController: UIViewController, PDFViewDelegate {
             pdfView.isHidden = true
             textView.isHidden = false
         }
+    }
+    
+    func readText() {
+        
+        guard let pageCount = self.pdfView.document?.pageCount else { return }
+        
+        let pdfContent = NSMutableAttributedString()
+        
+        let space = NSAttributedString(string: "\n\n\n")
+        
+        for i in 1..<pageCount {
+            guard let page = self.pdfView.document?.page(at: i) else { continue }
+            guard let pageContent = page.attributedString else { continue }
+            
+            pdfContent.append(space)
+            pdfContent.append(pageContent)
+        }
+        
+        self.textView.attributedText = pdfContent
     }
 }
 
