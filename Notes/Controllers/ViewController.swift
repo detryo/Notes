@@ -157,6 +157,16 @@ class ViewController: UIViewController, PDFViewDelegate {
             pdfContent.append(pageContent)
         }
         
+        let pattern = "https://[a-z0-9].[a-z]"
+        let regexp =  try? NSRegularExpression(pattern: pattern)
+        let range = NSMakeRange(0, pdfContent.string.utf16.count)
+        
+        if let matches = regexp?.matches(in: pdfContent.string, options: [], range: range) {
+            for match in matches.reversed() {
+                pdfContent.replaceCharacters(in: match.range, with: "")
+            }
+        }
+        
         self.textView.attributedText = pdfContent
     }
 }
