@@ -10,7 +10,7 @@ import UIKit
 import PDFKit
 import SafariServices
 
-class ViewController: UIViewController, PDFViewDelegate {
+class ViewController: UIViewController, PDFViewDelegate, PDFDocumentDelegate {
     
     let pdfView = PDFView()
     let textView = UITextView()
@@ -72,6 +72,7 @@ class ViewController: UIViewController, PDFViewDelegate {
         
         if let document = PDFDocument(url: path){
         
+            document.delegate = self
             self.pdfView.document = document
             self.pdfView.goToFirstPage(nil)
             self.readText()
@@ -168,6 +169,10 @@ class ViewController: UIViewController, PDFViewDelegate {
         }
         
         self.textView.attributedText = pdfContent
+    }
+    
+    func classForPage() -> AnyClass {
+        return Watermark.self
     }
 }
 

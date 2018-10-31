@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		364CBB76218A0C74002E40D5 /* Watermark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364CBB75218A0C74002E40D5 /* Watermark.swift */; };
 		366C6615217C930C003FB10C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366C6614217C930C003FB10C /* AppDelegate.swift */; };
 		366C6617217C930C003FB10C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366C6616217C930C003FB10C /* ViewController.swift */; };
 		366C661A217C930C003FB10C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 366C6618217C930C003FB10C /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		364CBB75218A0C74002E40D5 /* Watermark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watermark.swift; sourceTree = "<group>"; };
 		366C6611217C930B003FB10C /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		366C6614217C930C003FB10C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		366C6616217C930C003FB10C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				366C6616217C930C003FB10C /* ViewController.swift */,
+				364CBB75218A0C74002E40D5 /* Watermark.swift */,
 				366C6637217C95EB003FB10C /* FilesTableViewController.swift */,
 			);
 			path = Controllers;
@@ -186,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				364CBB76218A0C74002E40D5 /* Watermark.swift in Sources */,
 				366C6638217C95EB003FB10C /* FilesTableViewController.swift in Sources */,
 				366C6617217C930C003FB10C /* ViewController.swift in Sources */,
 				366C6615217C930C003FB10C /* AppDelegate.swift in Sources */,
